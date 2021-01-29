@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Основы Vue</title>
+    <link rel="stylesheet" href="theme.css"/>
+</head>
+<body>
+
+<div class="container" id="app">
+    <div class="card">
+        <h1>План по изучению Vue.js</h1>
+
+        <div class="steps" v-cloak>
+            <div class="steps-content">
+                {{ currentText }}
+                <!--                Сюда необходимо вывести текст активного шага по его индексу-->
+            </div>
+
+
+            <!--        <ul class="steps-list">-->
+            <!--          <li class="steps-item done"><span>1</span> Шаг 1</li>-->
+            <!--          <li class="steps-item done"><span>2</span> Шаг 2</li>-->
+            <!--          <li class="steps-item active"><span>3</span> Шаг 3</li>-->
+            <!--          <li class="steps-item"><span>4</span> Шаг 4</li>-->
+            <!--        </ul>-->
+
+
+            <ul class="steps-list">
+                <li v-for="(item, idx) in steps"
+                    :key="item"
+                    :class="currentStep(idx)"
+                    @click="setActive(idx)"
+                    class="steps-item">
+
+                     <span>
+                        {{ idx + 1 }}
+                    </span>
+                    {{ item.title }}
+                </li>
+            </ul>
+            <div class="btnBlock">
+                <div v-if="activeIndex == 0">
+                    <button
+                            class="btn"
+                            disabled
+                    >Назад
+                    </button>
+                </div>
+                <div v-else-if="activeIndex == 4">
+                    <button
+                            v-show="false"
+                            class="btn"
+                    >Назад
+                    </button>
+                </div>
+                <div v-else>
+                    <button
+                            class="btn"
+                            @click="prev"
+                    >Назад
+                    </button>
+                </div>
+
+                <button class="btn primary"
+                        @click="resetOrNext"
+                >{{ finish }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/vue@next"></script>
+<script src="vue.js"></script>
+</body>
+</html>
